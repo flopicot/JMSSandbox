@@ -107,6 +107,10 @@ See org.apache.activemq.artemis.api.core.management.ActiveMQServerControl if it 
 ### JMS batch consuming:
 	https://stackoverflow.com/questions/53960889/batch-bulk-message-jms-processing-with-wildfly
 
+### SIMPLE JMS BATCH COMPONENT
+    https://camel.apache.org/components/latest/sjms-batch-component.html
+
+
 ## TODO
  - Study complexe messaged objects with trigger attributes
  - Consume the entire queue and stop waiting for next message
