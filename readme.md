@@ -112,7 +112,9 @@ See org.apache.activemq.artemis.api.core.management.ActiveMQServerControl if it 
     
 ### Using Advanced JMS Features (Persistence, Message Priority and TTL, temporary destinations, local transaction)
     https://javaee.github.io/tutorial/jms-concepts004.html#BNCFY
-
+    
+### JMS DB Persistence
+    https://activemq.apache.org/persistence
 
 ## TODO
  - Study complexe messaged objects with trigger attributes
