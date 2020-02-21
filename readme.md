@@ -109,6 +109,9 @@ See org.apache.activemq.artemis.api.core.management.ActiveMQServerControl if it 
 
 ### SIMPLE JMS BATCH COMPONENT
     https://camel.apache.org/components/latest/sjms-batch-component.html
+    
+### Using Advanced JMS Features (Persistence, Message Priority and TTL, temporary destinations, local transaction)
+    https://javaee.github.io/tutorial/jms-concepts004.html#BNCFY
 
 
 ## TODO
