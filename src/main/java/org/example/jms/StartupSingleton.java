@@ -1,7 +1,7 @@
 package org.example.jms;
 
-import org.example.jms.message.EventMessage;
-import org.example.jms.message.Type;
+import org.example.jms.messagedrivenbean.EventMessage;
+import org.example.jms.messagedrivenbean.Type;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;

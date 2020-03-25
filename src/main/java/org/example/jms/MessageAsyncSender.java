@@ -1,6 +1,6 @@
 package org.example.jms;
 
-import org.example.jms.message.EventMessage;
+import org.example.jms.messagedrivenbean.EventMessage;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
