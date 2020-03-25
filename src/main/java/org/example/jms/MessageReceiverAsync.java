@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 	@ActivationConfigProperty(propertyName = "maxSessions", propertyValue = "1"),
 	@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") })
 public class MessageReceiverAsync implements MessageListener {
-	
+	private static final Logger LOGGER = Logger.getLogger(MessageReceiverAsync.class.getName());
 	final Lock lock = new ReentrantLock();
 	final Condition waitCond = lock.newCondition();
 	
@@ -26,12 +26,13 @@ public class MessageReceiverAsync implements MessageListener {
 		try {
 			EventMessage eventMessage = message.getBody(EventMessage.class);
 			lock.lock();
+			//Simulate time to process the message
 			waitCond.await(500, TimeUnit.MILLISECONDS);
 			System.out.println(MessageReceiverAsync.class.getName()+"-Message received (async): " + eventMessage.getType() + " - "+eventMessage.getValue());
 		} catch (JMSException ex) {
-			Logger.getLogger(MessageReceiverAsync.class.getName()).log(Level.SEVERE, null, ex);
+			LOGGER.log(Level.SEVERE, null, ex);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, null,e);
 		} finally {
 			lock.unlock();
 		}
