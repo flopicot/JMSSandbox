@@ -1,7 +1,8 @@
 package org.example.jms;
 
-import org.example.jms.messagedrivenbean.EventMessage;
-import org.example.jms.messagedrivenbean.Type;
+import org.example.jms.messagedrivenbean.bean.EventMessage;
+import org.example.jms.messagedrivenbean.bean.Type;
+import org.example.jms.messagedrivenbean.producer.MessageAsyncSender;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;

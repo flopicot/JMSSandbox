@@ -1,4 +1,4 @@
-package org.example.jms.messagedrivenbean;
+package org.example.jms.messagedrivenbean.bean;
 
 import java.io.Serializable;
 

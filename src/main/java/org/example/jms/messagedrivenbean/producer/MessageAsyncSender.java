@@ -1,6 +1,7 @@
-package org.example.jms;
+package org.example.jms.messagedrivenbean.producer;
 
-import org.example.jms.messagedrivenbean.EventMessage;
+import org.example.jms.Resources;
+import org.example.jms.messagedrivenbean.bean.EventMessage;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
