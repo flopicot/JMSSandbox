@@ -26,7 +26,7 @@ public class MessageAsyncSender {
 	Queue asyncQueue;
 	
 	/**
-	 * Send a message to the JMS queue. Prin
+	 * Send a message to the JMS queue.
 	 *
 	 * @param eventMessage the contents of the message.
 	 * @throws JMSRuntimeException if an error occurs in accessing the queue.
