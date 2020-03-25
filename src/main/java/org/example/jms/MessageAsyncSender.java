@@ -11,14 +11,14 @@ import javax.jms.JMSException;
 import javax.jms.JMSProducer;
 import javax.jms.JMSRuntimeException;
 import javax.jms.Message;
-import javax.jms.ObjectMessage;
 import javax.jms.Queue;
-import javax.jms.TextMessage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
 public class MessageAsyncSender {
+	private static final Logger LOGGER = Logger.getLogger(MessageAsyncSender.class.getName());
+	
 	@Inject
 	JMSContext jmsContext;
 
@@ -39,23 +39,23 @@ public class MessageAsyncSender {
 				public void onCompletion(Message msg) {
 					try {
 						EventMessage eventMessage = msg.getBody(EventMessage.class);
-						System.out.println("Message successfully sent (async): " + eventMessage.getType() + " - "+eventMessage.getValue());
+						LOGGER.log(Level.INFO,"Message successfully sent (async): " + eventMessage.getType() + " - "+eventMessage.getValue());
 					} catch (JMSException ex) {
-						Logger.getLogger(MessageAsyncSender.class.getName()).log(Level.SEVERE, null, ex);
+						LOGGER.log(Level.SEVERE, null, ex);
 					}
 				}
 
 				public void onException(Message msg, Exception e) {
 					try {
 						EventMessage eventMessage = msg.getBody(EventMessage.class);
-						System.out.println("Message fails to be sent (async): " + eventMessage.getType() + " - "+eventMessage.getValue());
+						LOGGER.log(Level.WARNING,"Message fails to be sent (async): " + eventMessage.getType() + " - "+eventMessage.getValue());
 					} catch (JMSException ex) {
-						Logger.getLogger(MessageAsyncSender.class.getName()).log(Level.SEVERE, null, ex);
+						LOGGER.log(Level.SEVERE, null, ex);
 					}
 				}
 			});
-		} catch (JMSRuntimeException ex) {
-			System.out.println("Caught RuntimeException trying to invoke setAsync - not permitted in Java EE. Resorting to synchronous sending...");
+		} catch (JMSRuntimeException e) {
+			LOGGER.log(Level.SEVERE,"Caught RuntimeException trying to invoke setAsync - not permitted in Java EE. Resorting to synchronous sending...",e);
 		}
 		producer.send(asyncQueue, eventMessage);
 	}
