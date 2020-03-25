@@ -1,4 +1,4 @@
-package org.example.jms;
+package org.example.jms.messagedrivenbean;
 
 import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSDestinationDefinitions;

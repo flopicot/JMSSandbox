@@ -1,6 +1,6 @@
 package org.example.jms.messagedrivenbean.producer;
 
-import org.example.jms.Resources;
+import org.example.jms.messagedrivenbean.Resources;
 import org.example.jms.messagedrivenbean.bean.EventMessage;
 
 import javax.annotation.Resource;

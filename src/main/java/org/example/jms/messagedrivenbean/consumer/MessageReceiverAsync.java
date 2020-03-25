@@ -1,6 +1,6 @@
 package org.example.jms.messagedrivenbean.consumer;
 
-import org.example.jms.Resources;
+import org.example.jms.messagedrivenbean.Resources;
 import org.example.jms.messagedrivenbean.bean.EventMessage;
 
 import javax.ejb.ActivationConfigProperty;
