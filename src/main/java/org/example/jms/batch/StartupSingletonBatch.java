@@ -42,7 +42,7 @@ public class StartupSingletonBatch {
 		
 	}
 	
-//	@Schedule(minute="*/1", hour="*")
+	@Schedule(minute="*/1", hour="*")
 	private void timer(){
 		sendMessages();
 	}
