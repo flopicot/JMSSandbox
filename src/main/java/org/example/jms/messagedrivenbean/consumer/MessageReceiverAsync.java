@@ -1,5 +1,6 @@
 package org.example.jms.messagedrivenbean.consumer;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.example.jms.messagedrivenbean.Resources;
 import org.example.jms.messagedrivenbean.bean.EventMessage;
 
@@ -25,8 +26,8 @@ public class MessageReceiverAsync implements MessageListener {
 	
 	public void onMessage(Message message) {
 		try {
-			EventMessage eventMessage = message.getBody(EventMessage.class);
 			lock.lock();
+			EventMessage eventMessage = SerializationUtils.deserialize(message.getBody(byte[].class));
 			//Simulate time to process the message
 			waitCond.await(500, TimeUnit.MILLISECONDS);
 			System.out.println(MessageReceiverAsync.class.getName()+"-Message received (async): " + eventMessage.getType() + " - "+eventMessage.getValue());
