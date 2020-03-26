@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class EventMessage implements Serializable {
 	
+	private static final long serialVersionUID = 7539560235904656962L;
+	
 	private Type type;
 	
 	private String value;
