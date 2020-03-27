@@ -3,6 +3,7 @@ package org.example.jms.batch.consumer;
 import org.example.jms.batch.bean.EventMessage;
 
 import javax.jms.Connection;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -22,7 +23,13 @@ public class EventMessageBatchConsumer extends AbstractBatchConsumer<EventMessag
 	}
 	
 	@Override
-	void processMessage(EventMessage eventMessage) {
+	void processMessages(List<EventMessage> eventMessages) {
+		for (EventMessage eventMessage : eventMessages) {
+			processMessage(eventMessage);
+		}
+	}
+	
+	private void processMessage(EventMessage eventMessage) {
 		try {
 			lock.lock();
 			//Simulate time to process the message

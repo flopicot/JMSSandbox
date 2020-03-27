@@ -44,9 +44,7 @@ public abstract class AbstractBatchConsumer<T> implements Runnable {
 		LOGGER.log(Level.INFO, "Starting processing queue.");
 		try (Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)) {
 			//Process messages
-			for (T beanMessage : getMessagesToProcess(session)) {
-				processMessage(beanMessage);
-			}
+				processMessages(getMessagesToProcess(session));
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Error processing queue.", e);
 		}
@@ -68,6 +66,6 @@ public abstract class AbstractBatchConsumer<T> implements Runnable {
 		return values;
 	}
 	
-	abstract void processMessage(T message);
+	abstract void processMessages(List<T> messages);
 	
 }
