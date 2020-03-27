@@ -1,11 +1,13 @@
 package org.example.jms.batch.producer;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.example.jms.batch.ResourcesBatch;
 import org.example.jms.batch.bean.EventMessage;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jms.BytesMessage;
 import javax.jms.CompletionListener;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
@@ -36,10 +38,12 @@ public class MessageAsyncSenderBatch {
 		JMSProducer producer = jmsContext.createProducer();
 
 		try {
+			BytesMessage bytesMessage = jmsContext.createBytesMessage();
+			bytesMessage.writeBytes(SerializationUtils.serialize(eventMessage));
 			producer.setAsync(new CompletionListener() {
 				public void onCompletion(Message msg) {
 					try {
-						EventMessage eventMessage = msg.getBody(EventMessage.class);
+						EventMessage eventMessage = SerializationUtils.deserialize(msg.getBody(byte[].class));
 						LOGGER.log(Level.INFO,"Message successfully sent (async): " + eventMessage.getType() + " - "+eventMessage.getValue());
 					} catch (JMSException ex) {
 						LOGGER.log(Level.SEVERE, null, ex);
@@ -48,16 +52,17 @@ public class MessageAsyncSenderBatch {
 
 				public void onException(Message msg, Exception e) {
 					try {
-						EventMessage eventMessage = msg.getBody(EventMessage.class);
+						EventMessage eventMessage = SerializationUtils.deserialize(msg.getBody(byte[].class));
 						LOGGER.log(Level.WARNING,"Message fails to be sent (async): " + eventMessage.getType() + " - "+eventMessage.getValue());
 					} catch (JMSException ex) {
 						LOGGER.log(Level.SEVERE, null, ex);
 					}
 				}
 			});
-		} catch (JMSRuntimeException e) {
-			LOGGER.log(Level.SEVERE,"Caught RuntimeException trying to invoke setAsync - not permitted in Java EE. Resorting to synchronous sending...",e);
+			
+			producer.send(asyncQueueBatch, bytesMessage);
+		} catch (JMSRuntimeException | JMSException e) {
+			LOGGER.log(Level.SEVERE,"Caught Exception trying to send message",e);
 		}
-		producer.send(asyncQueueBatch, eventMessage);
 	}
 }
