@@ -2,7 +2,8 @@ package org.example.jms.batch;
 
 import org.example.jms.batch.bean.EventMessage;
 import org.example.jms.batch.bean.Type;
-import org.example.jms.batch.consumer.BatchConsumer;
+import org.example.jms.batch.consumer.AbstractBatchConsumer;
+import org.example.jms.batch.consumer.EventMessageBatchConsumer;
 import org.example.jms.batch.producer.MessageAsyncSenderBatch;
 
 import javax.annotation.PostConstruct;
@@ -36,7 +37,7 @@ public class StartupSingletonBatch {
 	@PostConstruct
 	private void start() {
 		try {
-			BatchConsumer<EventMessage> consumer = new BatchConsumer<>(connectionFactory.createConnection(),
+			AbstractBatchConsumer<EventMessage> consumer = new EventMessageBatchConsumer(connectionFactory.createConnection(),
 				ResourcesBatch.ASYNC_QUEUE_BATCH_DESTINATION_NAME, 10);
 			Thread thread = threadFactory.newThread(consumer);
 			thread.start();
