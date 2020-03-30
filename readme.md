@@ -170,6 +170,10 @@ See org.apache.activemq.artemis.api.core.management.ActiveMQServerControl if it 
 
 ## Documentation sources
 
+### Jms resources management
+    https://activemq.apache.org/components/artemis/documentation/javadocs/javadoc-1.2.0/org/apache/activemq/artemis/api/jms/management/package-summary.html
+    https://activemq.apache.org/components/artemis/documentation/1.3.0/management.html
+
 ### The Jboss native management API :
 	https://docs.jboss.org/author/display/WFLY10/The+native+management+API
 
