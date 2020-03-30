@@ -20,6 +20,7 @@ public abstract class AbstractBatchConsumer<T> implements Runnable {
 	private final String sourceQueueName;
 	private final int batchSize;
 	private final Connection connection;
+	private boolean mustStop;
 	
 	public AbstractBatchConsumer(final Connection connection, final String sourceQueueName, final int batchSize) {
 		this.connection = connection;
@@ -31,10 +32,10 @@ public abstract class AbstractBatchConsumer<T> implements Runnable {
 	public void run() {
 		try {
 			connection.start();
-			while (true) {
+			while (!mustStop) {
 				processBatch();
-				Thread.sleep(1000);
 			}
+			LOGGER.log(Level.INFO,"BatchConsumer {0} stopping.",this);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Error processing messages in batch mode", e);
 		}
@@ -56,7 +57,7 @@ public abstract class AbstractBatchConsumer<T> implements Runnable {
 		final List<T> values = new ArrayList<>();
 		try (MessageConsumer consumer = session.createConsumer(source)) {
 			while (values.size() < batchSize) {
-				Message message = consumer.receive(100);
+				Message message = values.isEmpty() ? consumer.receive() : consumer.receive(500);
 				if (message == null) {
 					break;
 				}
@@ -68,4 +69,7 @@ public abstract class AbstractBatchConsumer<T> implements Runnable {
 	
 	abstract void processMessages(List<T> messages);
 	
+	public void stop() {
+		this.mustStop = true;
+	}
 }
