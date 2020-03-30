@@ -18,8 +18,8 @@ public class EventMessageBatchConsumer extends AbstractBatchConsumer<EventMessag
 	final Lock lock = new ReentrantLock();
 	final Condition waitCond = lock.newCondition();
 	
-	public EventMessageBatchConsumer(Connection connection, String sourceQueueName, int batchSize) {
-		super(connection, sourceQueueName, batchSize);
+	public EventMessageBatchConsumer(Connection connection, String sourceQueueName, int batchSize, String selector) {
+		super(connection, sourceQueueName, batchSize, selector);
 	}
 	
 	@Override

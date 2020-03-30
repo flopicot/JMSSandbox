@@ -24,12 +24,14 @@ public abstract class AbstractBatchConsumer<T> implements Runnable {
 	private final String sourceQueueName;
 	private final int batchSize;
 	private final Connection connection;
+	private final String selector;
 	private boolean mustStop;
 	
-	public AbstractBatchConsumer(final Connection connection, final String sourceQueueName, final int batchSize) {
+	public AbstractBatchConsumer(final Connection connection, final String sourceQueueName, final int batchSize, final String selector) {
 		this.connection = connection;
 		this.batchSize = batchSize;
 		this.sourceQueueName = sourceQueueName;
+		this.selector = selector;
 	}
 	
 	@Override
@@ -77,7 +79,7 @@ public abstract class AbstractBatchConsumer<T> implements Runnable {
 			throw new IllegalStateException("Unable to retrieve source queue",e);
 		}
 		
-		try (MessageConsumer consumer = session.createConsumer(source)) {
+		try (MessageConsumer consumer = this.selector == null ? session.createConsumer(source) : session.createConsumer(source,this.selector)) {
 			final List<T> values = new ArrayList<>();
 			while (values.size() < batchSize) {
 				Message message = values.isEmpty() ? consumer.receive() : consumer.receive(500);
