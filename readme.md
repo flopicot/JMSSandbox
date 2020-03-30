@@ -115,9 +115,3 @@ See org.apache.activemq.artemis.api.core.management.ActiveMQServerControl if it 
     
 ### JMS DB Persistence
     https://activemq.apache.org/persistence
-
-## TODO
- - Study complexe messaged objects with trigger attributes
- - Consume the entire queue and stop waiting for next message
- - Study message persistence (database)
- - Study the XtendedSearch message processing. Have to be transfered to XtendedSearch queue.
