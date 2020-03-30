@@ -62,6 +62,49 @@ The pool permit to limit the number of consumer thread
 	
 This declaration can be replace by the use of @JMSDestinationDefinition
 
+### Use JDBC persistence / Datasource instead of the default file journal mode
+
+#### Configure the database driver and the datasource (standalone.xml)
+
+    <subsystem xmlns="urn:jboss:domain:datasources:5.0">
+        <datasources>
+            <drivers>
+                <driver module="org.mysql" name="mysql">
+                    <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+                    <driver-class>com.mysql.jdbc.Driver</driver-class>
+                </driver>
+            </drivers>
+            <datasource jndi-name="java:jboss/datasources/jms-ds" jta="true" pool-name="jms-ds">
+                <connection-url>jdbc:mysql://localhost:3306/jms_test?useUnicode=yes&amp;characterEncoding=UTF-8&amp;useSSL=false</connection-url>
+                <driver>mysql</driver>
+                <security>
+                    <user-name>root</user-name>
+                    <password>manager</password>
+                </security>
+                <validation>
+                    <background-validation>true</background-validation>
+                    <background-validation-millis>10000</background-validation-millis>
+                    <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"/>
+                    <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"/>
+                </validation>
+                <pool>
+                    <min-pool-size>5</min-pool-size>
+                    <max-pool-size>50</max-pool-size>
+                    <prefill>true</prefill>
+                </pool>
+            </datasource>
+        </datasources>
+    </subsystem>
+
+#### Configure the JMS journal to use the datasource
+
+    <subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
+        <server name="default">
+            <journal datasource="jms-ds"/>
+            ...
+        </server>
+    </subsystem>
+
 ## NOTES
 
 ### Three connector types exists:
