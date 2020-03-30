@@ -23,20 +23,20 @@ public class EventMessageBatchConsumer extends AbstractBatchConsumer<EventMessag
 	}
 	
 	@Override
-	void processMessages(List<EventMessage> eventMessages) {
+	void processMessages(List<EventMessage> eventMessages) throws Exception {
 		for (EventMessage eventMessage : eventMessages) {
 			processMessage(eventMessage);
 		}
 	}
 	
-	private void processMessage(EventMessage eventMessage) {
+	private void processMessage(EventMessage eventMessage) throws Exception {
 		try {
 			lock.lock();
 			//Simulate time to process the message
 			waitCond.await(500, TimeUnit.MILLISECONDS);
 			LOGGER.log(Level.INFO, AbstractBatchConsumer.class.getName() + "-Message received (async): " + eventMessage.getType() + " - " + eventMessage.getValue());
 		} catch (InterruptedException e) {
-			LOGGER.log(Level.SEVERE, "Exception processing message", e);
+			throw new Exception("Exception processing message",e);
 		} finally {
 			lock.unlock();
 		}
