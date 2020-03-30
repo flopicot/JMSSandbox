@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.enterprise.concurrent.ManagedThreadFactory;
+import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
@@ -30,7 +30,7 @@ public class StartupSingletonBatch {
 	@Inject
 	MessageAsyncSenderBatch messageAsyncSenderBatch;
 	@Resource
-	private ManagedThreadFactory threadFactory;
+	private ManagedExecutorService managedExecutorService;
 	@Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
 	private ConnectionFactory connectionFactory;
 	
@@ -39,8 +39,7 @@ public class StartupSingletonBatch {
 		try {
 			AbstractBatchConsumer<EventMessage> consumer = new EventMessageBatchConsumer(connectionFactory.createConnection(),
 				ResourcesBatch.ASYNC_QUEUE_BATCH_DESTINATION_NAME, 10);
-			Thread thread = threadFactory.newThread(consumer);
-			thread.start();
+			managedExecutorService.execute(consumer);
 		} catch (JMSException e) {
 			LOGGER.log(Level.SEVERE, "Error spawning consumer thread", e);
 		}
