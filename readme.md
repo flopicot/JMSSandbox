@@ -131,6 +131,8 @@ Consume messages from queue using a Consumer with selector
     String selector = "type = 'ONE'";
     MessageConsumer consumer = session.createConsumer(source,this.selector);
     Message message = consumer.receive();
+    
+The filter (selector) language documentation can be found here: https://docs.oracle.com/javaee/7/api/javax/jms/Message.html
 
 ## NOTES
 
