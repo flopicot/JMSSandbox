@@ -114,6 +114,23 @@ This declaration can be replace by the use of @JMSDestinationDefinition
             ...
         </server>
     </subsystem>
+    
+### Discriminate message consuming a queue
+
+Add a property to the message when sending
+
+    JMSProducer producer = jmsContext.createProducer();
+    BytesMessage bytesMessage = jmsContext.createBytesMessage();
+    bytesMessage.writeBytes(SerializationUtils.serialize(eventMessage));
+    ...
+    bytesMessage.setStringProperty("type",eventMessage.getType().name());
+    producer.send(asyncQueueBatch, bytesMessage);
+
+Consume messages from queue using a Consumer with selector
+
+    String selector = "type = 'ONE'";
+    MessageConsumer consumer = session.createConsumer(source,this.selector);
+    Message message = consumer.receive();
 
 ## NOTES
 
