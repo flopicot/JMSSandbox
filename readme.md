@@ -104,6 +104,16 @@ This declaration can be replace by the use of @JMSDestinationDefinition
             ...
         </server>
     </subsystem>
+    
+### Define the max delivery attempts for messages (default 10) (standalone.xml)
+
+    <subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
+        <server name="default">
+            ...
+            <address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limit="10" max-delivery-attempts="3"/>
+            ...
+        </server>
+    </subsystem>
 
 ## NOTES
 
