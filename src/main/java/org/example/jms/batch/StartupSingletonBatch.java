@@ -37,9 +37,13 @@ public class StartupSingletonBatch {
 	@PostConstruct
 	private void start() {
 		try {
-			AbstractBatchConsumer<EventMessage> consumer = new EventMessageBatchConsumer(connectionFactory.createConnection(),
-				ResourcesBatch.ASYNC_QUEUE_BATCH_DESTINATION_NAME, 10);
-			managedExecutorService.execute(consumer);
+			AbstractBatchConsumer<EventMessage> consumerTypeOne = new EventMessageBatchConsumer(connectionFactory.createConnection(),
+				ResourcesBatch.ASYNC_QUEUE_BATCH_DESTINATION_NAME, 10,"type = 'ONE'");
+			managedExecutorService.execute(consumerTypeOne);
+			
+			AbstractBatchConsumer<EventMessage> consumerTypeTwo = new EventMessageBatchConsumer(connectionFactory.createConnection(),
+				ResourcesBatch.ASYNC_QUEUE_BATCH_DESTINATION_NAME, 10,"type = 'TWO'");
+			managedExecutorService.execute(consumerTypeTwo);
 		} catch (JMSException e) {
 			LOGGER.log(Level.SEVERE, "Error spawning consumer thread", e);
 		}
