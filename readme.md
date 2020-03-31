@@ -134,6 +134,15 @@ Consume messages from queue using a Consumer with selector
     
 The filter (selector) language documentation can be found here: https://docs.oracle.com/javaee/7/api/javax/jms/Message.html
 
+### Activate jmx management
+
+    <subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
+        <server name="default">
+            <management jmx-enabled="true"/>
+            ...
+        </server>
+    </subsystem>
+    
 ## NOTES
 
 ### Three connector types exists:
