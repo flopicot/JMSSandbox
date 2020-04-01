@@ -32,7 +32,7 @@ public class MessageReceiverAsync implements MessageListener {
 			waitCond.await(500, TimeUnit.MILLISECONDS);
 			LOGGER.log(Level.INFO,"{0}-Message received (async): {1} - {2}", new Object[]{MessageReceiverAsync.class.getName(),eventMessage.getType(),eventMessage.getValue()});
 		} catch (JMSException | InterruptedException e) {
-			LOGGER.log(Level.SEVERE, null, e);
+			throw new IllegalStateException(e);
 		} finally {
 			lock.unlock();
 		}
