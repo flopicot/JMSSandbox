@@ -78,8 +78,8 @@ This declaration can be replace by the use of @JMSDestinationDefinition
                 <connection-url>jdbc:mysql://localhost:3306/jms_test?useUnicode=yes&amp;characterEncoding=UTF-8&amp;useSSL=false</connection-url>
                 <driver>mysql</driver>
                 <security>
-                    <user-name>root</user-name>
-                    <password>manager</password>
+                    <user-name>user</user-name>
+                    <password>password</password>
                 </security>
                 <validation>
                     <background-validation>true</background-validation>
