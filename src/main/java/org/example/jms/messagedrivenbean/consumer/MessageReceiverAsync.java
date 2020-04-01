@@ -30,11 +30,9 @@ public class MessageReceiverAsync implements MessageListener {
 			EventMessage eventMessage = SerializationUtils.deserialize(message.getBody(byte[].class));
 			//Simulate time to process the message
 			waitCond.await(500, TimeUnit.MILLISECONDS);
-			System.out.println(MessageReceiverAsync.class.getName()+"-Message received (async): " + eventMessage.getType() + " - "+eventMessage.getValue());
-		} catch (JMSException ex) {
-			LOGGER.log(Level.SEVERE, null, ex);
-		} catch (InterruptedException e) {
-			LOGGER.log(Level.SEVERE, null,e);
+			LOGGER.log(Level.INFO,"{0}-Message received (async): {1} - {2}", new Object[]{MessageReceiverAsync.class.getName(),eventMessage.getType(),eventMessage.getValue()});
+		} catch (JMSException | InterruptedException e) {
+			LOGGER.log(Level.SEVERE, null, e);
 		} finally {
 			lock.unlock();
 		}
