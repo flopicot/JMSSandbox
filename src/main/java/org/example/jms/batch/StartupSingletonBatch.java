@@ -38,7 +38,7 @@ public class StartupSingletonBatch {
 	private void start() {
 		try {
 			AbstractBatchConsumer<EventMessage> consumerTypeOne = new EventMessageBatchConsumer(connectionFactory.createConnection(),
-				ResourcesBatch.ASYNC_QUEUE_BATCH_DESTINATION_NAME, 10,"type = 'ONE'");
+				ResourcesBatch.ASYNC_QUEUE_BATCH_DESTINATION_NAME, 10, "type = 'ONE'");
 			managedExecutorService.execute(consumerTypeOne);
 			
 			AbstractBatchConsumer<EventMessage> consumerTypeTwo = new EventMessageBatchConsumer(connectionFactory.createConnection(),
