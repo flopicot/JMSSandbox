@@ -27,7 +27,6 @@ public class StartupSingleton {
 		sendMessages();
 	}
 	
-	
 	private void sendMessages() {
 		Random random = new Random();
 		for (int i = 0; i < 20; i++) {
