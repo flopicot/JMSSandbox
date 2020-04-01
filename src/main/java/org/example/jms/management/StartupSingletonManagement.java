@@ -39,7 +39,7 @@ public class StartupSingletonManagement {
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE,"Error retrieving JMS status");
+			LOGGER.log(Level.SEVERE,"Error retrieving JMS status",e);
 		}
 	}
 }
