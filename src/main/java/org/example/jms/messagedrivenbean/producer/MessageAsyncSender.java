@@ -59,6 +59,7 @@ public class MessageAsyncSender {
 					}
 				}
 			});
+			bytesMessage.setStringProperty("eventType",eventMessage.getType().name());
 			producer.send(asyncQueue, bytesMessage);
 		} catch (JMSRuntimeException | JMSException e) {
 			LOGGER.log(Level.SEVERE,"Caught RuntimeException trying to invoke setAsync - not permitted in Java EE. Resorting to synchronous sending...",e);

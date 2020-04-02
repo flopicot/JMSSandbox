@@ -59,7 +59,7 @@ public class MessageAsyncSenderBatch {
 					}
 				}
 			});
-			bytesMessage.setStringProperty("type",eventMessage.getType().name());
+			bytesMessage.setStringProperty("eventType",eventMessage.getType().name());
 			producer.send(asyncQueueBatch, bytesMessage);
 		} catch (JMSRuntimeException | JMSException e) {
 			LOGGER.log(Level.SEVERE,"Caught Exception trying to send message",e);
