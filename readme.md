@@ -2,6 +2,42 @@
 
 Tested on a Wildfly 18.0.1 Final
 
+## List of features contained into code exemple
+
+### package org.example.jms.messagedrivenbean
+
+* Transmit JMS message contening serailized java object asynchronously
+* Declare the queue with the @JMSDestinationDefinition annotation
+* A Stateless message sender/producer
+* A scheduler using the producer to send message periodicaly
+* A Message Driven Bean (MDB - @MessageDriven) to consume the message in the queue
+  * Limit the number of concurrent consumer/MDB
+  * Simulate time consuming and processing messages
+
+### package org.example.jms.batch
+* Transmit JMS message contening serailized java object asynchronously
+* Declare the queue with the @JMSDestinationDefinition annotation
+* A Stateless message sender/producer
+* A scheduler using the producer to send message periodicaly
+* An AbstractBatchConsumer<T> Runnable class to consume JMS message with T body type
+  * a batchSize to configure the number of message to process each time
+  * a transaction for each batch/lot to be able to rollback the message processing in cas of error
+  * In case of rollback, message are redelivered
+  * A selector permit to discriminate the message to process in the queue
+  * the Runnable task can be asked for stop.
+* A EventMessageBatchConsumer implementation for AbstractBatchConsumer<EventMessage>
+  * Process a batch/lot of EventMessage typed messages (size configure with batchSize)
+  * Simulate time to process message
+* Starting multiple Runnable task to consume message from the queue with discrimination using filter/selector
+
+### package org.example.jms.management
+* A scheduler to write a report on queues state periodicaly into server log
+* List the existing queues
+* Count message from each queue (with or without discrimination using filter/selector)
+* List message from queue (with or without discrimination using filter/selector)
+* Empty a queue
+* Remove a specific message from a queue
+
 ## Configure Wildfly
 
 ### Add the wildfly extension (standalone.xml)
