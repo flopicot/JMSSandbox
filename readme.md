@@ -149,6 +149,15 @@ This declaration can be replace by the use of @JMSDestinationDefinition into Jav
         </server>
     </subsystem>
     
+to change table names (names limited to 10 characters)
+
+    <subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
+        <server name="default">
+            <journal datasource="jms-ds" bindings-table="jms_bindings" messages-table="jms_msg" page-store-table="jms_pg_str" large-messages-table="jms_lg_msg"/>
+            ...
+        </server>
+    </subsystem>
+    
 ### Define redelivery behaviour (standalone.xml)
 
 ### Define the max delivery attempts for messages (default 10)
