@@ -44,7 +44,17 @@ Tested on a Wildfly 18.0.1 Final
 				   entries="jms/topic/test java:jboss/exported/jms/topic/test" />
 	</subsystem>
 	
-This declaration can be replace by the use of @JMSDestinationDefinition
+This declaration can be replace by the use of @JMSDestinationDefinition into Java sources
+
+### Configure the consumer prefetch size (confirmation-window-size attribute on connection factory)
+
+	<subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
+		<server name="default">
+		...
+		    <pooled-connection-factory name="activemq-ra" transaction="xa" connectors="in-vm" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" confirmation-window-size="1024" consumer-window-size="0"/>
+		...
+		</server>
+    </subsystem>
 
 ### Use JDBC persistence / Datasource instead of the default file journal mode
 
