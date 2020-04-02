@@ -20,8 +20,8 @@ import java.util.logging.Logger;
 @MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = Resources.ASYNC_QUEUE),
 	@ActivationConfigProperty(propertyName = "maxSession", propertyValue = "2"),
 	@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") })
-public class MessageReceiverAsync implements MessageListener {
-	private static final Logger LOGGER = Logger.getLogger(MessageReceiverAsync.class.getName());
+public class MessageAsyncReceiver implements MessageListener {
+	private static final Logger LOGGER = Logger.getLogger(MessageAsyncReceiver.class.getName());
 	final Lock lock = new ReentrantLock();
 	final Condition waitCond = lock.newCondition();
 	
@@ -34,7 +34,7 @@ public class MessageReceiverAsync implements MessageListener {
 			}
 			//Simulate time to process the message
 			waitCond.await(500, TimeUnit.MILLISECONDS);
-			LOGGER.log(Level.INFO,"{0}-Message received (async): {1} - {2}", new Object[]{MessageReceiverAsync.class.getName(),eventMessage.getType(),eventMessage.getValue()});
+			LOGGER.log(Level.INFO,"{0}-Message received (async): {1} - {2}", new Object[]{ MessageAsyncReceiver.class.getName(),eventMessage.getType(),eventMessage.getValue()});
 		} catch (JMSException | InterruptedException e) {
 			throw new IllegalStateException(e);
 		} finally {
