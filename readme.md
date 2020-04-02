@@ -229,6 +229,9 @@ To limit the number of consumer thread to 2
     
 ## NOTES
 
+### Performance on Message driven bean consumer versus Runnable batching message by 10
+A runnable task consuming message batching with lot of 10 appears to be 2x faster than Message Driven Bean and his onMessage() call (with default configuration).  
+
 ### Three connector types exists:
  * in-vm-connector can be used by a local client (i.e. one running in the same JVM as the server)
  * remote-connector can be used by a remote client (and uses Netty over TCP for the communication)
