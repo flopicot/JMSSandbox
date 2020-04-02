@@ -134,7 +134,9 @@ This declaration can be replace by the use of @JMSDestinationDefinition into Jav
         </server>
     </subsystem>
     
-### Define the max delivery attempts for messages (default 10) (standalone.xml)
+### Define redelivery behaviour (standalone.xml)
+
+### Define the max delivery attempts for messages (default 10)
 
     <subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
         <server name="default">
@@ -143,6 +145,16 @@ This declaration can be replace by the use of @JMSDestinationDefinition into Jav
             ...
         </server>
     </subsystem>
+    
+### Define the redelivery delay for messages
+
+    <subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
+        <server name="default">
+            ...
+            <address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limit="10" redelivery-delay="20000" redelivery-delay-multiplier="1.5"/>
+            ...
+        </server>
+    </subsystem>     
     
 ### Discriminate message consuming a queue
 
