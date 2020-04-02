@@ -81,8 +81,8 @@ This declaration can be replace by the use of @JMSDestinationDefinition into Jav
 
 ### Define Dead letter and or Expiry queue
 
-* If configured, dead letter queue will receive message which cannot be delivered or redelivered successfully
-* If configured, expiry queue will receive expirated messages.
+* If configured, dead letter queue will receive message which cannot be delivered or redelivered successfully. If not this messages will be dropped and a log is written.
+* If configured, expiry queue will receive expirated messages. If not this messages will be dropped and a log is written.
 
 
     <subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
