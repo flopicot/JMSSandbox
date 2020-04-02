@@ -2,23 +2,23 @@
 
 Tested on a Wildfly 18.0.1 Final
 
-## List of features contained into code exemple
+## List of features contained into code example
 
 ### package org.example.jms.messagedrivenbean
 
-* Transmit JMS message contening serailized java object asynchronously
+* Transmit JMS message containing serialized java object asynchronously
 * Declare the queue with the @JMSDestinationDefinition annotation
 * A Stateless message sender/producer
-* A scheduler using the producer to send message periodicaly
+* A scheduler using the producer to send message periodically
 * A Message Driven Bean (MDB - @MessageDriven) to consume the message in the queue
   * Limit the number of concurrent consumer/MDB
   * Simulate time consuming and processing messages
 
 ### package org.example.jms.batch
-* Transmit JMS message contening serailized java object asynchronously
+* Transmit JMS message containing serialized java object asynchronously
 * Declare the queue with the @JMSDestinationDefinition annotation
 * A Stateless message sender/producer
-* A scheduler using the producer to send message periodicaly
+* A scheduler using the producer to send message periodically
 * An AbstractBatchConsumer<T> Runnable class to consume JMS message with T body type
   * a batchSize to configure the number of message to process each time
   * a transaction for each batch/lot to be able to rollback the message processing in cas of error
@@ -31,7 +31,7 @@ Tested on a Wildfly 18.0.1 Final
 * Starting multiple Runnable task to consume message from the queue with discrimination using filter/selector
 
 ### package org.example.jms.management
-* A scheduler to write a report on queues state periodicaly into server log
+* A scheduler to write a report on queues state periodically into server log
 * List the existing queues
 * Count message from each queue (with or without discrimination using filter/selector)
 * List message from queue (with or without discrimination using filter/selector)
