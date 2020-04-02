@@ -229,9 +229,9 @@ To limit the number of consumer thread to 2
 ## NOTES
 
 ### Three connector types exists:
- * in-vm-connector
- * remote-connector
- * http-connector
+ * in-vm-connector can be used by a local client (i.e. one running in the same JVM as the server)
+ * remote-connector can be used by a remote client (and uses Netty over TCP for the communication)
+ * http-connector can be used by a remote client (and uses Undertow Web Server to upgrade from a HTTP connection)
  
 ### There are three kinds of basic JMS connection-factory
 
