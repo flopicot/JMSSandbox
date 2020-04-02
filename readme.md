@@ -151,7 +151,7 @@ This declaration can be replace by the use of @JMSDestinationDefinition into Jav
     <subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
         <server name="default">
             ...
-            <address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limit="10" redelivery-delay="20000" redelivery-delay-multiplier="1.5"/>
+            <address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limit="10" redelivery-delay="20000" redelivery-multiplier="1.5"/>
             ...
         </server>
     </subsystem>     
