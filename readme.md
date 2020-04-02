@@ -107,6 +107,7 @@ This declaration can be replace by the use of @JMSDestinationDefinition into Jav
     </subsystem>
 
 ### Use JDBC persistence / Datasource instead of the default file journal mode
+Warning: on huge queue (near 30 000 little byte messages), artemis try to activate pagination and fails to do this on mysql backend. It works on standard file persistence.  
 
 #### Configure the database driver and the datasource (standalone.xml)
 
