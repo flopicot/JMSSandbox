@@ -52,13 +52,11 @@ Tested on a Wildfly 18.0.1 Final
 			<security-setting name="#">
 				<role name="guest" send="true" consume="true" create-non-durable-queue="true" delete-non-durable-queue="true"/>
 			</security-setting>
-			<address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limit="10"/>
+			<address-setting name="#" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limit="10"/>
 			<in-vm-connector name="in-vm" server-id="0"/>
 			<in-vm-acceptor name="in-vm" server-id="0">
 				<param name="buffer-pooling" value="false"/>
 			</in-vm-acceptor>
-			<jms-queue name="ExpiryQueue" entries="java:/jms/queue/ExpiryQueue"/>
-			<jms-queue name="DLQ" entries="java:/jms/queue/DLQ"/>
 			<pooled-connection-factory name="activemq-ra" transaction="xa" connectors="in-vm" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" confirmation-window-size="1024"/>
 		</server>
 	</subsystem>
@@ -68,7 +66,7 @@ Tested on a Wildfly 18.0.1 Final
 
 ## Other Wildfly configuration tips
 
-### Define queues or topics (standalone.xml)
+### Define queues or topics administratively (standalone.xml)
 
 	<subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
 		<server name="default">
@@ -80,6 +78,23 @@ Tested on a Wildfly 18.0.1 Final
 	</subsystem>
 	
 This declaration can be replace by the use of @JMSDestinationDefinition into Java sources
+
+### Define Dead letter and or Expiry queue
+
+* If configured, dead letter queue will receive message which cannot be delivered or redelivered successfully
+* If configured, expiry queue will receive expirated messages.
+
+
+    <subsystem xmlns="urn:jboss:domain:messaging-activemq:8.0">
+        <server name="default">
+            ...
+            <address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limit="10"/>
+            ...
+            <jms-queue name="ExpiryQueue" entries="java:/jms/queue/ExpiryQueue"/>
+            <jms-queue name="DLQ" entries="java:/jms/queue/DLQ"/>
+            ....
+        </server>
+    </subsystem>
 
 ### Configure the consumer prefetch size (confirmation-window-size attribute on connection factory)
 
