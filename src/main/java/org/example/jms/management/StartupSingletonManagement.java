@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * 	- Count message in a queue (with or without filter/selector)
  * 	- Empty a queue
  * 	- Remove a message from queue
- * 	- List message from a queue (with or without filter/selector)
+ * 	- List message from a queue using a QueueBrowser (with or without filter/selector)
  */
 @Singleton
 @Startup
