@@ -19,6 +19,15 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Permit to schedule a report written to log file.
+ * Show how to:
+ * 	- List destinations (queue or topic)
+ * 	- Count message in a queue (with or without filter/selector)
+ * 	- Empty a queue
+ * 	- Remove a message from queue
+ * 	- List message from a queue (with or without filter/selector)
+ */
 @Singleton
 @Startup
 public class StartupSingletonManagement {
