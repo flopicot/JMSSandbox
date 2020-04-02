@@ -1,6 +1,5 @@
 package org.example.jms.messagedrivenbean.consumer;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.SerializationUtils;
 import org.example.jms.messagedrivenbean.Resources;
 import org.example.jms.messagedrivenbean.bean.EventMessage;
@@ -29,9 +28,10 @@ public class MessageAsyncReceiver implements MessageListener {
 		try {
 			lock.lock();
 			EventMessage eventMessage = SerializationUtils.deserialize(message.getBody(byte[].class));
-			if (eventMessage.getValue().contains("11")) {
-				throw new NotImplementedException("Simulating message processing error : Cannot process message with the 11 value");
-			}
+			// Uncomment this to test error processing message
+//			if (eventMessage.getValue().contains("11")) {
+//				throw new NotImplementedException("Simulating message processing error : Cannot process message with the 11 value");
+//			}
 			//Simulate time to process the message
 			waitCond.await(500, TimeUnit.MILLISECONDS);
 			LOGGER.log(Level.INFO,"{0}-Message received (async): {1} - {2}", new Object[]{ MessageAsyncReceiver.class.getName(),eventMessage.getType(),eventMessage.getValue()});
