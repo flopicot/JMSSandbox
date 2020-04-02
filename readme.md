@@ -38,7 +38,7 @@ Tested on a Wildfly 18.0.1 Final
 * Empty a queue
 * Remove a specific message from a queue
 
-## Configure Wildfly
+## Minimum Wildfly configuration
 
 ### Add the wildfly extension (standalone.xml)
 
@@ -59,7 +59,6 @@ Tested on a Wildfly 18.0.1 Final
 			</in-vm-acceptor>
 			<jms-queue name="ExpiryQueue" entries="java:/jms/queue/ExpiryQueue"/>
 			<jms-queue name="DLQ" entries="java:/jms/queue/DLQ"/>
-			<connection-factory name="InVmConnectionFactory" connectors="in-vm" entries="java:/ConnectionFactory" confirmation-window-size="1024"/>
 			<pooled-connection-factory name="activemq-ra" transaction="xa" connectors="in-vm" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" confirmation-window-size="1024"/>
 		</server>
 	</subsystem>
