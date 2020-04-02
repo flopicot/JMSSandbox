@@ -38,7 +38,7 @@ Tested on a Wildfly 18.0.1 Final
 * Empty a queue
 * Remove a specific message from a queue
 
-## Minimum Wildfly configuration
+## Minimal Wildfly configuration
 
 ### Add the wildfly extension (standalone.xml)
 
