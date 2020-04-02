@@ -33,7 +33,7 @@ public class EventMessageBatchConsumer extends AbstractBatchConsumer<EventMessag
 		try {
 			lock.lock();
 			//Simulate time to process the message
-			waitCond.await(500, TimeUnit.MILLISECONDS);
+			waitCond.await(1500, TimeUnit.MILLISECONDS);
 			LOGGER.log(Level.INFO, AbstractBatchConsumer.class.getName() + "-Message received (async): " + eventMessage.getType() + " - " + eventMessage.getValue());
 		} catch (InterruptedException e) {
 			throw new Exception("Exception processing message",e);

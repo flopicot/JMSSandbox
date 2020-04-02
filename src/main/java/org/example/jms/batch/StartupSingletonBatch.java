@@ -56,7 +56,7 @@ public class StartupSingletonBatch {
 	
 	private void sendMessages() {
 		Random random = new Random();
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 50; i++) {
 			EventMessage eventMessage = new EventMessage();
 			eventMessage.setType((i % 2 == 0) ? Type.ONE : Type.TWO);
 			eventMessage.setValue(BATCH_MESSAGE_CONSTANT + "-" + i + " : " + random.nextInt());
