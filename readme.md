@@ -7,24 +7,6 @@ Tested on a Wildfly 18.0.1 Final
 ### Add the wildfly extension (standalone.xml)
 
 	<extension module="org.wildfly.extension.messaging-activemq"/>
-	
-### Change EJB3 config (standalone.xml)
-The pool permit to limit the number of consumer thread
-
-	<subsystem xmlns="urn:jboss:domain:ejb3:6.0">
-		...
-		<mdb>
-			<resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:activemq-ra.rar}"/>
-			<bean-instance-pool-ref pool-name="event-mdb-process"/>
-		</mdb>
-		<pools>
-                <bean-instance-pools>
-					<strict-max-pool name="event-mdb-process" max-pool-size="2" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
-					...
-				</bean-instance-pools>
-		</pools>
-		...
-	</subsystem>
 
 ### Define the JMS subsystem configuration (standalone.xml)
 
@@ -48,6 +30,8 @@ The pool permit to limit the number of consumer thread
 	
 ### Define the default JMS connection factory into default bindings (standalone.xml)
 	<default-bindings ...  jms-connection-factory="java:jboss/DefaultJMSConnectionFactory" ... />
+
+## Other Wildfly configuration tips
 
 ### Define queues or topics (standalone.xml)
 
@@ -142,6 +126,24 @@ The filter (selector) language documentation can be found here: https://docs.ora
             ...
         </server>
     </subsystem>
+
+### limit the number of consumer thread (standalone.xml)
+To limit the number of consumer thread to 2
+
+	<subsystem xmlns="urn:jboss:domain:ejb3:6.0">
+		...
+		<mdb>
+			<resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:activemq-ra.rar}"/>
+			<bean-instance-pool-ref pool-name="event-mdb-process"/>
+		</mdb>
+		<pools>
+                <bean-instance-pools>
+					<strict-max-pool name="event-mdb-process" max-pool-size="2" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
+					...
+				</bean-instance-pools>
+		</pools>
+		...
+	</subsystem>
     
 ## NOTES
 
