@@ -19,7 +19,7 @@ public class StartupSingleton {
 
 	@PostConstruct
 	private void start(){
-		sendMessages();
+		/**sendMessages();**/
 	}
 	
 	@Schedule(minute="*/1", hour="*")
